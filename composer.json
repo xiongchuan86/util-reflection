@@ -1,0 +1,19 @@
+{
+    "name": "kassko/util-reflection",
+    "description": "Add new capabilities to native php reflection",
+    "license": "MIT",
+    "keywords": ["reflection", "reflector", "doccomment", "docblock"],
+    "require": {
+        "php": ">=7"
+    },
+    "require-dev": {
+        "kassko/util-member-accessor": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kassko\\Util\\Reflection\\": "lib"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
