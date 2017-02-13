@@ -29,7 +29,7 @@ class AccessorFinder
         yield 'has' . $methodsBase;
     }
 
-    public function findPropGetter(string $propName) : string
+    public function findPropGetter(string $propName)
     {
         $key = 'getter' . $propName;
 
@@ -63,7 +63,7 @@ class AccessorFinder
         yield 'get' . $methodsBase . 'Item';
     }
 
-    public function findPropItemGetter(string $propName) : string
+    public function findPropItemGetter(string $propName)
     {
         $key = 'item_getter' . $propName;
 
@@ -98,7 +98,7 @@ class AccessorFinder
         yield 'make' . $methodsBase;
     }
 
-    public function findPropSetter(string $propName) : string
+    public function findPropSetter(string $propName)
     {
         $key = 'setter' . $propName;
 
@@ -133,7 +133,7 @@ class AccessorFinder
         yield 'append' . $methodsBase . 'Item';
     }
 
-    public function findPropAdder(string $propName) : string
+    public function findPropAdder(string $propName)
     {
         $key = 'adder' . $propName;
 
@@ -166,7 +166,7 @@ class AccessorFinder
         yield 'add' . $methodsBase . 'Item';
     }
 
-    public function findPropAssocAdder(string $propName) : string
+    public function findPropAssocAdder(string $propName)
     {
         $key = 'assoc_adder' . $propName;
 
@@ -195,7 +195,7 @@ class AccessorFinder
     /**
      * @return array
      */
-    public function getGetters() : array
+    public function findGetters() : array
     {
         $key = 'getters';
 
@@ -206,10 +206,10 @@ class AccessorFinder
         $properties = $this->advReflClass->getPropertiesNames();
         $methods = $this->advReflClass->getMethodsNames();
 
-        return $this->cached[$key] = array_merge($this->getStrictGetters(), $this->getIsers(), $this->getHasers());
+        return $this->cached[$key] = array_merge($this->findStrictGetters(), $this->findIsers(), $this->findHasers());
     }
 
-    public function getStrictGetters() : array
+    public function findStrictGetters() : array
     {
         $key = 'strict_getters';
 
@@ -230,7 +230,7 @@ class AccessorFinder
         );
     }
 
-    public function getIsers() : array
+    public function findIsers() : array
     {
         $key = 'isers';
 
@@ -251,7 +251,7 @@ class AccessorFinder
         );
     }
 
-    public function getHasers() : array
+    public function findHasers() : array
     {
         $key = 'hasers';
 
@@ -275,7 +275,7 @@ class AccessorFinder
     /**
      * @return array
      */
-    public function getSetters() : array
+    public function findSetters() : array
     {
         $key = 'setters';
 
@@ -286,13 +286,13 @@ class AccessorFinder
         $properties = $this->advReflClass->getPropertiesNames();
         $methods = $this->advReflClass->getMethodsNames();
 
-        return $this->cached[$key] = array_merge($this->getStrictSetters(), $this->getWithers(), $this->getMakers());
+        return $this->cached[$key] = array_merge($this->findStrictSetters(), $this->findWithers(), $this->findMakers());
     }
 
     /**
      * @return array
      */
-    public function getStrictSetters() : array
+    public function findStrictSetters() : array
     {
         $key = 'strict_setters';
 
@@ -317,7 +317,7 @@ class AccessorFinder
     /**
      * @return array
      */
-    public function getWithers() : array
+    public function findWithers() : array
     {
         $key = 'withers';
 
@@ -342,7 +342,7 @@ class AccessorFinder
     /**
      * @return array
      */
-    public function getMakers() : array
+    public function findMakers() : array
     {
         $key = 'makers';
 

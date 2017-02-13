@@ -31,13 +31,13 @@ abstract class DocCommentParser
         return $this->allCustomTags;
     }
 
-    public function getTag($name)
+    public function getTag($name) : Tag
     {
         if (!isset($this->tags[$name]) || 0 === sizeof($this->tags[$name])) {
            return null;
         }
 
-        return $this->tags[$name];
+        return $this->tags[$name][0];
     }
 
     public function getTags($name) : array

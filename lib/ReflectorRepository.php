@@ -119,4 +119,9 @@ class ReflectorRepository
 
         return $this->cache[$key];
     }
+
+    public function newPhpElemParser()
+    {
+        return new PhpElementsParser();
+    }
 }

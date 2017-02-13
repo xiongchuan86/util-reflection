@@ -32,7 +32,7 @@ class ReflectionClass extends \ReflectionClass
             function ($method) {
                 return $method->getName();
             },
-            $this->innerRefl->getMethods()
+            $this->innerRefl->getProperties()
         );
 
 
