@@ -33,6 +33,11 @@ class Tag
         return $this->fields;
     }
 
+    public function getFieldsCount() : integer
+    {
+        return count($this->fields);
+    }
+
     public function addField(string $field) : self
     {
         $this->fields[] = $field;

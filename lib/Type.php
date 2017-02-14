@@ -6,16 +6,65 @@ class Type
 {
     /** @var string */
     private $type;
+    /** @var string */
+    private $fullClass;
+    /** @var string */
+    private $resolvedType;
+    /** @var boolean */
+    private $class;
     /** @var boolean */
     private $collection;
-    /** @var string */
-    private $itemType;
     /** @var boolean */
-    private $builtin;
+    private $objectCollection;
+    /** @var boolean */
+    private $builtIn;
 
-    public function __construct(string $type)
+    public function __construct(string $type, string $fullClass)
     {
         $this->type = $type;
+
+        $this->parse();
+    }
+
+    protected function parse()
+    {
+        if ('array' === $this->type) {
+            $this->collection = true;
+        }
+
+        if (null !== $fullClass) {
+            if ('[]' === substr($fullClass, -2)) {
+                $this->resolvedType = $fullClass;
+                $this->collection = true;
+                $this->objectCollection = true;
+                $this->itemClass = substr($fullClass, 0, -2);
+            } else {
+                $this->class = true;
+                $this->fullClass = $fullClass;
+            }
+        } else {
+            $this->resolvedType = $this->type;
+        }
+
+        $this->builtIn = in_array(
+            $this->type, [
+                'boolean',
+                'integer',
+                'int',
+                'float',
+                'string',
+                'array',
+                'object',
+                'callable',
+                'resource',
+                'null',
+                'mixed',
+                'number',
+                'callback',
+                'array|object',
+                'void',
+            ]
+        );
     }
 
     public function getType() : string
@@ -23,11 +72,19 @@ class Type
         return $this->type;
     }
 
-    public function setType(string $type) : string
+    public function getClass() : string
     {
-        $this->type = $type;
+        return $this->fullClass;
+    }
 
-        return $this;
+    public function getItemClass() : string
+    {
+        return $this->itemClass;
+    }
+
+    public function isClass() : boolean
+    {
+        return $this->class;
     }
 
     public function isCollection() : boolean
@@ -35,35 +92,14 @@ class Type
         return $this->collection;
     }
 
-    public function makeCollection(boolean $collection = true)
+    public function isObjectCollection() : boolean
     {
-        $this->collection = $collection;
-
-        return $this;
+        return $this->objectCollection;
     }
 
-    public function getItemType() : string
+    protected function isBuiltIn() : boolean
     {
-        return $this->itemType;
-    }
-
-    public function setItemType(string $itemType) : string
-    {
-        $this->itemType = $itemType;
-
-        return $this;
-    }
-
-    public function isBuiltin() : boolean
-    {
-        return $this->builtin;
-    }
-
-    public function makeBuiltin(boolean $builtin = true) : boolean
-    {
-        $this->builtin = $builtin;
-
-        return $this;
+        return $this->builtIn;
     }
 
     public function __toString() : string

@@ -51,7 +51,7 @@ class ReflectorRepository
         $key = 'adv_refl_class.' . $class;
 
         if (!isset($this->cache[$key])) {
-            $this->cache[$key] = new ReflectionClass($this->reflClass($class));
+            $this->cache[$key] = new ReflectionClass($this->reflClass($class), $this->phpElemParser());
         }
 
         return $this->cache[$key];
@@ -120,8 +120,15 @@ class ReflectorRepository
         return $this->cache[$key];
     }
 
-    public function newPhpElemParser()
+    public function phpElemParser()
     {
-        return new PhpElementsParser();
+        $class = is_string($classOrObject) ? $classOrObject : get_class($classOrObject);
+        $key = 'php_elem_parser' . '.' . $class . '.' . $method;
+
+        if (!isset($this->cache[$key])) {
+            $this->cache[$key] = new PhpElementsParser;
+        }
+
+        return $this->cache[$key];
     }
 }

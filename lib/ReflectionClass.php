@@ -6,14 +6,19 @@ class ReflectionClass extends \ReflectionClass
 {
     /** @var ReflectionClass */
     private $innerRefl;
+    /** @var PhpElementsParser */
+    private $phpElementsParser;
     /** @var array */
     private $cached = [];
     /** @var array */
+    private $propertiesNames;
+    /** @var array */
     private $methodsNames;
 
-    public function __construct(\ReflectionClass $innerRefl)
+    public function __construct(\ReflectionClass $innerRefl, PhpElementsParser $phpElementsParser)
     {
         $this->innerRefl = $innerRefl;
+        $this->phpElementsParser = $phpElementsParser;
     }
 
     public function getNativeRefl() : \ReflectionClass
