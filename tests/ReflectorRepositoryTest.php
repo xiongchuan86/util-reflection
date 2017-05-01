@@ -2,68 +2,24 @@
 
 namespace Kassko\Util\ReflectionTest;
 
-use Kassko\Util\Reflection\ReflectorRepository;
+use Kassko\Util\Reflection;
+use Kassko\Util\ReflectionTest\Fixtures;
 
 class ReflectorRepositoryTest extends \PHPUnit_Framework_TestCase
 {
-    private $reflectorRepo;
-
-    public function setUp()
-    {
-        $this->reflectorRepo = new ReflectorRepository;
-    }
-
     /**
      * @test
      */
     public function reflClass()
     {
-        $class = new Class {
+        $class = new Fixtures\ClassA;
 
-            private $name;
-            private $addresses;
-
-            public function getName()
-            {
-                return $this->name;
-            }
-
-            public function setName($name)
-            {
-                $this->name = $name;
-            }
-
-            public function getAddresses()
-            {
-                return $this->addresses;
-            }
-
-            public function getAddressesItem($key)
-            {
-                return $this->addresses[$key];
-            }
-
-            public function setAddresses(array $addresses)
-            {
-                $this->addresses = $addresses;
-            }
-
-            public function addAddressesItem(int $key, string $address)
-            {
-                $this->addresses[$key] = $address;
-            }
-
-            public function pushAddressesItem(string $address)
-            {
-                $this->addresses[] = $address;
-            }
-        };
-
-        //$reflClass = $this->reflectorRepo->advReflClass($class);
-        //var_dump($reflClass->getMethodsNames());
-
-
-        $accessorFinder = $this->reflectorRepo->accessorFinder($class);
+        $accessorFinder = new Reflection\AccessorFinder(
+            new Reflection\ReflectionClass(
+                new \ReflectionClass($class),
+                new Reflection\PhpElementsParser
+            )
+        );
 
         $this->assertEquals('getName', $accessorFinder->findPropGetter('name'));
         $this->assertEquals('setName', $accessorFinder->findPropSetter('name'));

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace Kassko\Util\Reflection;
 
@@ -20,7 +20,7 @@ class AccessorFinder
         $this->class = $this->nativeReflClass->getName();
     }
 
-    protected function getCandidatesGetters(string $propName) : \Generator
+    protected function getCandidatesGetters($propName)
     {
         $methodsBase = ucFirst($propName);
 
@@ -29,7 +29,7 @@ class AccessorFinder
         yield 'has' . $methodsBase;
     }
 
-    public function findPropGetter(string $propName)
+    public function findPropGetter($propName)
     {
         $key = 'getter' . $propName;
 
@@ -55,7 +55,7 @@ class AccessorFinder
         return $this->cached[$key] = $electedMethod;
     }
 
-    protected function getCandidatesItemGetters(string $propName) : \Generator
+    protected function getCandidatesItemGetters($propName)
     {
         $methodsBase = ucFirst($propName);
 
@@ -63,7 +63,7 @@ class AccessorFinder
         yield 'get' . $methodsBase . 'Item';
     }
 
-    public function findPropItemGetter(string $propName)
+    public function findPropItemGetter($propName)
     {
         $key = 'item_getter' . $propName;
 
@@ -89,7 +89,7 @@ class AccessorFinder
         return $this->cached[$key] = $electedMethod;
     }
 
-    protected function getCandidatesSetters(string $propName) : \Generator
+    protected function getCandidatesSetters($propName)
     {
         $methodsBase = ucFirst($propName);
 
@@ -98,7 +98,7 @@ class AccessorFinder
         yield 'make' . $methodsBase;
     }
 
-    public function findPropSetter(string $propName)
+    public function findPropSetter($propName)
     {
         $key = 'setter' . $propName;
 
@@ -124,7 +124,7 @@ class AccessorFinder
         return $this->cached[$key] = $electedMethod;
     }
 
-    protected function getCandidatesAdders(string $propName) : \Generator
+    protected function getCandidatesAdders($propName)
     {
         $methodsBase = ucFirst($propName);
 
@@ -133,7 +133,7 @@ class AccessorFinder
         yield 'append' . $methodsBase . 'Item';
     }
 
-    public function findPropAdder(string $propName)
+    public function findPropAdder($propName)
     {
         $key = 'adder' . $propName;
 
@@ -159,14 +159,14 @@ class AccessorFinder
         return $this->cached[$key] = $electedMethod;
     }
 
-    protected function getCandidatesAssocAdders(string $propName) : \Generator
+    protected function getCandidatesAssocAdders($propName)
     {
         $methodsBase = ucFirst($propName);
 
         yield 'add' . $methodsBase . 'Item';
     }
 
-    public function findPropAssocAdder(string $propName)
+    public function findPropAssocAdder($propName)
     {
         $key = 'assoc_adder' . $propName;
 
@@ -195,7 +195,7 @@ class AccessorFinder
     /**
      * @return array
      */
-    public function findGetters() : array
+    public function findGetters()
     {
         $key = 'getters';
 
@@ -209,7 +209,7 @@ class AccessorFinder
         return $this->cached[$key] = array_merge($this->findStrictGetters(), $this->findIsers(), $this->findHasers());
     }
 
-    public function findStrictGetters() : array
+    public function findStrictGetters()
     {
         $key = 'strict_getters';
 
@@ -230,7 +230,7 @@ class AccessorFinder
         );
     }
 
-    public function findIsers() : array
+    public function findIsers()
     {
         $key = 'isers';
 
@@ -251,7 +251,7 @@ class AccessorFinder
         );
     }
 
-    public function findHasers() : array
+    public function findHasers()
     {
         $key = 'hasers';
 
@@ -275,7 +275,7 @@ class AccessorFinder
     /**
      * @return array
      */
-    public function findSetters() : array
+    public function findSetters()
     {
         $key = 'setters';
 
@@ -292,7 +292,7 @@ class AccessorFinder
     /**
      * @return array
      */
-    public function findStrictSetters() : array
+    public function findStrictSetters()
     {
         $key = 'strict_setters';
 
@@ -317,7 +317,7 @@ class AccessorFinder
     /**
      * @return array
      */
-    public function findWithers() : array
+    public function findWithers()
     {
         $key = 'withers';
 
@@ -342,7 +342,7 @@ class AccessorFinder
     /**
      * @return array
      */
-    public function findMakers() : array
+    public function findMakers()
     {
         $key = 'makers';
 

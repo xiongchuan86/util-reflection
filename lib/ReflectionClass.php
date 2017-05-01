@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace Kassko\Util\Reflection;
 
@@ -9,11 +9,7 @@ class ReflectionClass extends \ReflectionClass
     /** @var PhpElementsParser */
     private $phpElementsParser;
     /** @var array */
-    private $cached = [];
-    /** @var array */
-    private $propertiesNames;
-    /** @var array */
-    private $methodsNames;
+    private $cache = [];
 
     public function __construct(\ReflectionClass $innerRefl, PhpElementsParser $phpElementsParser)
     {
@@ -21,44 +17,44 @@ class ReflectionClass extends \ReflectionClass
         $this->phpElementsParser = $phpElementsParser;
     }
 
-    public function getNativeRefl() : \ReflectionClass
+    public function getNativeRefl()
     {
         return $this->innerRefl;
     }
 
-    public function getPropertiesNames() : array
+    public function getPropertiesNames()
     {
-        if (isset($this->cached['prop_names'])) {
-            return $this->propertiesNames;
+        $key = 'properties_names';
+
+        if (!isset($this->cache[$key])) {
+            $propertiesNames = array_map(
+                function ($property) {
+                    return $property->getName();
+                },
+                $this->innerRefl->getProperties()
+            );
+
+            $this->cache[$key] = array_combine($propertiesNames, $propertiesNames);
         }
-        $this->cached['prop_names'] = true;
 
-        $this->propertiesNames = array_map(
-            function ($method) {
-                return $method->getName();
-            },
-            $this->innerRefl->getProperties()
-        );
-
-
-        return $this->propertiesNames = array_combine($this->propertiesNames, $this->propertiesNames);
+        return $this->cache[$key];
     }
 
-    public function getMethodsNames() : array
+    public function getMethodsNames()
     {
-        if (isset($this->cached['methods_names'])) {
-            return $this->methodsNames;
+        $key = 'methods_names';
+
+        if (!isset($this->cache[$key])) {
+            $methodsNames = array_map(
+                function ($method) {
+                    return $method->getName();
+                },
+                $this->innerRefl->getMethods()
+            );
+            $this->cache[$key] = array_combine($methodsNames, $methodsNames);
         }
-        $this->cached['methods_names'] = true;
 
-        $this->methodsNames = array_map(
-            function ($method) {
-                return $method->getName();
-            },
-            $this->innerRefl->getMethods()
-        );
-
-        return $this->methodsNames = array_combine($this->methodsNames, $this->methodsNames);
+        return $this->cache[$key];
     }
 
     /**
@@ -67,7 +63,7 @@ class ReflectionClass extends \ReflectionClass
      *
      * @return array
      */
-    protected function resolveType($type, $parentFullClass) : array
+    protected function resolveType($type, $parentFullClass)
     {
         if ('$this' === $type || 'self' === $type) {
             $type = 'object';

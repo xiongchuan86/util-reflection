@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace Kassko\Util\Reflection\DocCommentParser;
 
@@ -11,7 +11,7 @@ abstract class Scope extends \Kassko\Util\Reflection\DocCommentParser
     /** @var array */
     private $fieldsNumbersByTags = [];
 
-    public function setFieldsNumbersByTags(array $fieldsNumbersByTags) : self
+    public function setFieldsNumbersByTags(array $fieldsNumbersByTags)
     {
         $this->fieldsNumbersByTags = $fieldsNumbersByTags;
 
@@ -50,7 +50,7 @@ abstract class Scope extends \Kassko\Util\Reflection\DocCommentParser
     /**
      * {@inheritdoc}
      */
-    protected function parseLine(string $docCommentLine)
+    protected function parseLine($docCommentLine)
     {
         if ('' === $docCommentLine
             || ('@' === $docCommentLine[0] && strlen($docCommentLine) < 2)
@@ -68,7 +68,7 @@ abstract class Scope extends \Kassko\Util\Reflection\DocCommentParser
                     $setters = ['setType', 'setName'];
                     $tokens = preg_split('/[\s]+/', $docCommentLine, 3);
 
-                    [$type, $fullClass] = $this->advReflClass->resolveType($tokens[1], $this->parentFullClass);
+                    list($type, $fullClass) = $this->advReflClass->resolveType($tokens[1], $this->parentFullClass);
 
                     $tag->setType(new Type($type, $fullClass));
                     $tag->setName($tokens[2]);
@@ -83,7 +83,7 @@ abstract class Scope extends \Kassko\Util\Reflection\DocCommentParser
                     array_shift($tokens);
                     foreach ($tokens as $i => $token) {
                         if ('setType' === $token) {
-                            [$type, $fullClass] = $this->advReflClass->resolveType($tokens[$i], $this->parentFullClass);
+                            list($type, $fullClass) = $this->advReflClass->resolveType($tokens[$i], $this->parentFullClass);
                             $tag->setType(new Type($type, $fullClass));
                         }
                         $tag->{$setters[$i]}($token);
@@ -97,7 +97,7 @@ abstract class Scope extends \Kassko\Util\Reflection\DocCommentParser
                     array_shift($tokens);
                     foreach ($tokens as $i => $token) {
                         if ('setType' === $token) {
-                            [$type, $fullClass] = $this->advReflClass->resolveType($tokens[$i], $this->parentFullClass);
+                            list($type, $fullClass) = $this->advReflClass->resolveType($tokens[$i], $this->parentFullClass);
                             $tag->setType(new Type($type, $fullClass));
                         }
                         $tag->{$setters[$i]}($token);
@@ -111,7 +111,7 @@ abstract class Scope extends \Kassko\Util\Reflection\DocCommentParser
                     array_shift($tokens);
                     foreach ($tokens as $i => $token) {
                         if ('setClass' === $token) {
-                            [$type, $fullClass] = $this->advReflClass->resolveType($tokens[$i], $this->parentFullClass);
+                            list($type, $fullClass) = $this->advReflClass->resolveType($tokens[$i], $this->parentFullClass);
                             $tag->setType(new Type('object', $fullClass));
                         }
                         $tag->{$setters[$i]}($token);
@@ -138,5 +138,5 @@ abstract class Scope extends \Kassko\Util\Reflection\DocCommentParser
         }
     }
 
-    abstract protected function getDocComment() : string;
+    abstract protected function getDocComment();
 }

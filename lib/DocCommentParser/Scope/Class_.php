@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace Kassko\Util\Reflection\DocCommentParser\Scope;
 
@@ -14,7 +14,7 @@ class Class_ extends \Kassko\Util\Reflection\DocCommentParser\Scope
         $this->nativeReflClass = $reflClass->getNativeRefl();
     }
 
-    protected function getDocComment() : string
+    protected function getDocComment()
     {
         return $this->nativeReflClass->getDocComment();
     }

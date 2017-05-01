@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace Kassko\Util\Reflection;
 
@@ -21,7 +21,7 @@ class PhpElementsParser
      *
      * @return array
      */
-    public function parseFile(string $filepath) : array
+    public function parseFile(string $filepath)
     {
         $phpCode = file_get_contents($filepath);
         $this->parseCode($phpCode, $filepath);
@@ -112,7 +112,7 @@ class PhpElementsParser
      *
      * @throws \DomainException
      */
-    public function resolveFullClass(string $parentFullClass, string $classOrRelativeClassPath) : string
+    public function resolveFullClass(string $parentFullClass, string $classOrRelativeClassPath)
     {
         $classInfo = $this->classesInfo[$parentFullClass];
 
@@ -150,7 +150,7 @@ class PhpElementsParser
      *
      * @return string
      */
-    public function getFullClasses(string $filePath) : string
+    public function getFullClasses(string $filePath)
     {
         return $this->mapFilePathToFullClass[$filePath];
     }

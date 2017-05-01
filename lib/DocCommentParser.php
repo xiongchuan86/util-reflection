@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace Kassko\Util\Reflection;
 
@@ -18,7 +18,7 @@ abstract class DocCommentParser
     /**
      * @return DocTag[]
      */
-    public function getAllTags() : array
+    public function getAllTags()
     {
         return $this->allTags;
     }
@@ -26,12 +26,12 @@ abstract class DocCommentParser
     /**
      * @return DocTag[]
      */
-    public function getAllCustomTags() : array
+    public function getAllCustomTags()
     {
         return $this->allCustomTags;
     }
 
-    public function getTag($name) : Tag
+    public function getTag($name)
     {
         if (!isset($this->tags[$name]) || 0 === sizeof($this->tags[$name])) {
            return null;
@@ -40,7 +40,7 @@ abstract class DocCommentParser
         return $this->tags[$name][0];
     }
 
-    public function getTags($name) : array
+    public function getTags($name)
     {
         if (!isset($this->tags[$name])) {
            return [];
@@ -49,7 +49,7 @@ abstract class DocCommentParser
         return $this->tags[$name];
     }
 
-    protected function addTag(string $name, Tag $tag) : self
+    protected function addTag($name, Tag $tag)
     {
         if (!isset($this->tags[$name])) {
             $this->tags[$name] = [];

@@ -1,10 +1,10 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace Kassko\Util\Reflection\Tag;
 
 class Var_ extends \Kassko\Util\Reflection\Tag
 {
-    public function __construct(string $type = null, string $description = null)
+    public function __construct($type = null, $description = null)
     {
         parent::__construct('var');
 
@@ -17,7 +17,7 @@ class Var_ extends \Kassko\Util\Reflection\Tag
         return $this->getField('type');
     }
 
-    public function setType(string $type) : self
+    public function setType($type)
     {
         $this->addNamedField('type', $type);
 
@@ -29,7 +29,7 @@ class Var_ extends \Kassko\Util\Reflection\Tag
         return $this->getField('description');
     }
 
-    public function setDescription(string $description) : self
+    public function setDescription($description)
     {
         $this->addNamedField('description', $description);
 

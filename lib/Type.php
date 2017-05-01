@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace Kassko\Util\Reflection;
 
@@ -19,7 +19,7 @@ class Type
     /** @var boolean */
     private $builtIn;
 
-    public function __construct(string $type, string $fullClass)
+    public function __construct($type, $fullClass)
     {
         $this->type = $type;
 
@@ -67,42 +67,42 @@ class Type
         );
     }
 
-    public function getType() : string
+    public function getType()
     {
         return $this->type;
     }
 
-    public function getClass() : string
+    public function getClass()
     {
         return $this->fullClass;
     }
 
-    public function getItemClass() : string
+    public function getItemClass()
     {
         return $this->itemClass;
     }
 
-    public function isClass() : boolean
+    public function isClass()
     {
         return $this->class;
     }
 
-    public function isCollection() : boolean
+    public function isCollection()
     {
         return $this->collection;
     }
 
-    public function isObjectCollection() : boolean
+    public function isObjectCollection()
     {
         return $this->objectCollection;
     }
 
-    protected function isBuiltIn() : boolean
+    protected function isBuiltIn()
     {
         return $this->builtIn;
     }
 
-    public function __toString() : string
+    public function __toString()
     {
         return $this->type;
     }

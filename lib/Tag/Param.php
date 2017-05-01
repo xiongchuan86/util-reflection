@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace Kassko\Util\Reflection\Tag;
 
@@ -18,7 +18,7 @@ class Param extends \Kassko\Util\Reflection\Tag
         return $this->getField('type');
     }
 
-    public function setType(string $type) : self
+    public function setType($type)
     {
         $this->addNamedField('type', $type);
 
@@ -30,7 +30,7 @@ class Param extends \Kassko\Util\Reflection\Tag
         return $this->getField('name');
     }
 
-    public function setName(string $name) : self
+    public function setName($name)
     {
         $this->addNamedField('name', $name);
 
@@ -42,7 +42,7 @@ class Param extends \Kassko\Util\Reflection\Tag
         return $this->getField('description');
     }
 
-    public function setDescription(string $description) : self
+    public function setDescription($description)
     {
         $this->addNamedField('description', $description);
 

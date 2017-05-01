@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace Kassko\Util\Reflection;
 
@@ -51,7 +51,7 @@ class ReflectorRepository
         $key = 'adv_refl_class.' . $class;
 
         if (!isset($this->cache[$key])) {
-            $this->cache[$key] = new ReflectionClass($this->reflClass($class), $this->phpElemParser());
+            $this->cache[$key] = new ReflectionClass($this->reflClass($class), $this->phpElemParser($class));
         }
 
         return $this->cache[$key];
@@ -120,10 +120,10 @@ class ReflectorRepository
         return $this->cache[$key];
     }
 
-    public function phpElemParser()
+    public function phpElemParser($classOrObject)
     {
         $class = is_string($classOrObject) ? $classOrObject : get_class($classOrObject);
-        $key = 'php_elem_parser' . '.' . $class . '.' . $method;
+        $key = 'php_elem_parser' . '.' . $class;
 
         if (!isset($this->cache[$key])) {
             $this->cache[$key] = new PhpElementsParser;

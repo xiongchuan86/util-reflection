@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace Kassko\Util\Reflection;
 
@@ -9,12 +9,12 @@ class Tag
     /** @var array */
     private $fields = [];
 
-    public function __construct(string $name)
+    public function __construct($name)
     {
         $this->name = $name;
     }
 
-    public function getTagName() : string
+    public function getTagName()
     {
         return $this->name;
     }
@@ -28,31 +28,31 @@ class Tag
         return $this->fields[$fieldKey];
     }
 
-    public function getFields() : array
+    public function getFields()
     {
         return $this->fields;
     }
 
-    public function getFieldsCount() : integer
+    public function getFieldsCount()
     {
         return count($this->fields);
     }
 
-    public function addField(string $field) : self
+    public function addField($field)
     {
         $this->fields[] = $field;
 
         return $this;
     }
 
-    public function addNamedField(string $fieldName, $fieldValue) : self
+    public function addNamedField($fieldName, $fieldValue)
     {
         $this->fields[$fieldName] = $fieldValue;
 
         return $this;
     }
 
-    public function __toString() : string
+    public function __toString()
     {
         return $this->name;
     }
