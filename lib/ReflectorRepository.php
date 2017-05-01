@@ -57,6 +57,18 @@ class ReflectorRepository
         return $this->cache[$key];
     }
 
+    public function advReflProperty($classOrObject, $property)
+    {
+        $class = is_string($classOrObject) ? $classOrObject : get_class($classOrObject);
+        $key = 'refl_prop.' . '.' . $class . '.' . $property;
+
+        if (!isset($this->cache[$key])) {
+            $this->cache[$key] = new ReflectionProperty($class, $property);
+        }
+
+        return $this->cache[$key];
+    }
+
     public function accessorFinder($classOrObject)
     {
         $class = is_string($classOrObject) ? $classOrObject : get_class($classOrObject);
