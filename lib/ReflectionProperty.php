@@ -21,7 +21,6 @@ class ReflectionProperty extends \ReflectionProperty
 
     /**
      * @param string $type
-     * @param string $parentFullClass
      *
      * @return array
      */
@@ -29,11 +28,11 @@ class ReflectionProperty extends \ReflectionProperty
     {
         if ('$this' === $type || 'self' === $type) {
             $type = 'object';
-            $fullClass = $parentFullClass;
+            $fullClass = $this->getDeclaringClass()->getName();
         } elseif (in_array($type, ['boolean', 'float', 'integer', 'string', 'array'])) {
             $fullClass = null;
         } else {
-            $fullClass = $this->phpElementsParser->resolveFullClass($parentFullClass, $type);
+            $fullClass = $this->phpElementsParser->resolveFullClass($this->getDeclaringClass()->getName(), $type);
             $type = 'object';
         }
 
