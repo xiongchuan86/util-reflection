@@ -31,11 +31,13 @@ abstract class Scope extends \Kassko\Util\Reflection\DocCommentParser
 
     protected function doParse($docComment)
     {
-        $docComment = trim(str_replace(['/**', '*/', '*', '$'], '', $docComment));
-        $docCommentLines = explode(PHP_EOL, $docComment);
+        if($docComment){
+            $docComment = trim(str_replace(['/**', '*/', '*', '$'], '', $docComment));
+            $docCommentLines = explode(PHP_EOL, $docComment);
 
-        foreach ($docCommentLines as $docCommentLine) {
-            $this->parseLine(trim($docCommentLine));
+            foreach ($docCommentLines as $docCommentLine) {
+                $this->parseLine(trim($docCommentLine));
+            }
         }
     }
 

@@ -16,6 +16,6 @@ class Property extends \Kassko\Util\Reflection\DocCommentParser\Scope
 
     protected function getDocComment() : string
     {
-        return $this->reflProperty->getDocComment();
+        return (string)$this->reflProperty->getDocComment();
     }
 }

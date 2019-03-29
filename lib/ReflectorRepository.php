@@ -39,7 +39,7 @@ class ReflectorRepository
         $key = 'refl_method' . '.' . $class . '.' . $method;
 
         if (!isset($this->cache[$key])) {
-            $this->cache[$key] = new \ReflectionMethod($class, $property);
+            $this->cache[$key] = new \ReflectionMethod($class, $method);
         }
 
         return $this->cache[$key];

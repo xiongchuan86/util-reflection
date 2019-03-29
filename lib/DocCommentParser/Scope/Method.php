@@ -16,6 +16,6 @@ class Method extends \Kassko\Util\Reflection\DocCommentParser\Scope
 
     protected function getDocComment() : string
     {
-        return $this->reflMethod->getDocComment();
+        return (string)$this->reflMethod->getDocComment();
     }
 }
